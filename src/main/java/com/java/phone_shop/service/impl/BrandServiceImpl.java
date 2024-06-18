@@ -1,5 +1,7 @@
 package com.java.phone_shop.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,18 @@ public class BrandServiceImpl implements BrandService{
 		Brand brand = getById(id);
 		brand.setName(brandUpdate.getName());	//@TODO improve update
 		return brandRepository.save(brand);
+	}
+
+	@Override
+	public List<Brand> getBrands() {
+		return brandRepository.findAll();
+	}
+
+	@Override
+	public List<Brand> getBrands(String name) {
+		//return brandRepository.findByNameIgnoreCase(name);
+		//return brandRepository.findByNameContaining(name);
+		return brandRepository.findByNameContainingIgnoreCase(name);
 	}
 
 }
